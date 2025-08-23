@@ -1,4 +1,3 @@
-// script.js
 // This script controls navigation, dark/light mode, resume filtering, contact form validation, and greeting.
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -103,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get filter values from checkboxes and number inputs
         const showProf = document.getElementById('filter-professional').checked; // Show professional?
         const showEdu = document.getElementById('filter-education').checked;     // Show education?
-        const from = parseInt(document.getElementById('filter-from').value, 10); // Start year
-        const to = parseInt(document.getElementById('filter-to').value, 10);     // End year
+        const from = parseInt(document.getElementById('filter-from').value, 10); // Start year //.value This gets the current value entered in that input field. The value is always a string, even if the input type is number.
+        const to = parseInt(document.getElementById('filter-to').value, 10);     // End year // The 10 means "use base 10" (decimal), which is standard for normal numbers.
         const list = document.getElementById('resume-list'); // The <ul> for resume items
         list.innerHTML = ''; // Clear previous list
 
@@ -147,6 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateEmail(email) {
         // Basic email pattern: something@something.something
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+         // The expression /^[^\s@]+@[^\s@]+\.[^\s@]+$/ is a regular expression (regex) 
+        // used to check if an email address is in a valid format.
+        // [^] — Start of the string. // $ — End of the string.
+        // /.../ tell JavaScript: "This is a regular expression."
     }
     // Function to validate all form fields and show error messages
     function validateForm() {

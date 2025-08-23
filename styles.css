@@ -2,40 +2,49 @@
 body {
 	margin: 0;
 	font-family: Arial, sans-serif;
-	background: var(--bg, #ffffff);
-	color: var(--fg, #000000);
+	background: var(--bg, #ffffff); /* bg = background color; Use the value of the --bg variable. If it’s not set, use #ffffff (white) as a fallback. */
+	color: var(--fg, #000000);          /* fg = foreground color */
 	transition: background 0.3s, color 0.3s;
+     /*  
+        background — Animate background color changes 
+        color — Animate text color changes 
+        transform — Animate transformations (like scaling or moving) */
 }
 
 /* Sidebar styles */
 #sidebar {
-	position: fixed;
+	position: fixed; /*element stays in a fixed position relative to the browser window, not the rest of the page. It will not move when you scroll */
 	left: 0;
 	top: 0;
 	width: 220px;
-	height: 100vh;
+	height: 100vh; /* viewport height 100% of the height of the visible browser window */
 	background: #333;
 	color: #0ef10e;
 	padding-top: 20px;
-	z-index: 1000;
-	transition: left 0.3s;
+	z-index: 1000; /* makes sure your sidebar appears above most other elements on the page*/
+	transition: left 0.3s; /* property animate smoothly, instead of jumping instantly */
 }
 #sidebar .sidebar-header {
-	font-size: 1.5em;
+	font-size: 1.5em; /* 1.5 times the font size of the parent element */
 	text-align: center;
 	margin-bottom: 40px;
 }
 #sidebar ul {
-	list-style: none;
+	list-style: none; /* Removes the default bullets or numbers from lists (<ul> or <ol>) */
 	padding: 0;
 }
 #sidebar ul li {
 	margin: 15px 0;
 	text-align: center;
 }
-#sidebar ul li a {
+ /* Selects any <ul> (unordered list) inside #sidebar.
+    Selects any <li> (list item) inside that <ul>.
+    Selects any <a> (link) inside that <li>.
+*/
+
+#sidebar ul li a {               
 	color: #0ef10e;
-	text-decoration: none;
+	text-decoration: none; /*Removes underlines (or else) from text, commonly used on links*/
 	font-size: 1.1em;
 	transition: color 0.2s;
 }
@@ -43,8 +52,9 @@ body {
 	color: #ffd700;
 }
 #toggle-mode {
-	display: block;
-	margin: 450px auto 0 auto;
+	display: block; /* on a link makes it behave like a block;
+    Block elements start on a new line and take up the full width available */
+	margin: 450px auto 0 auto; /* T R B L, auto = centers horizontally */
 	background: #444;
 	color: #ffffff;
 	border: none;
@@ -56,7 +66,7 @@ body {
 
 /* Hamburger for mobile */
 #hamburger {
-	display: none;
+	display: none; /*Completely hides the element from the page*/
 	position: fixed;
 	top: 15px;
 	left: 15px;
@@ -80,9 +90,10 @@ body {
 /* Home section hero styles */
 .hero-card {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row; /*Used on a flex container (display: flex;).
+Arranges child elements (flex items) in a horizontal row, from left to right. */
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: flex-start; /* Used on a flex container. Aligns child elements to the start (left side) of the main axis (horizontal, if flex-direction: row) */
 	background: linear-gradient(120deg, #0ef10e10 0%, #e0ffe0 100%);
 	border-radius: 24px;
 	box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -100,7 +111,7 @@ body {
 	background: #fff;
 }
 .hero-content {
-	flex: 1;
+	flex: 1; /* Tells the item to grow and fill available space in the flex container. */
 }
 .hero-title {
 	font-size: 2.2em;
@@ -113,29 +124,13 @@ body {
 	color: #333;
 	margin-bottom: 18px;
 }
-.hero-btn {
-	display: inline-block;
-	margin-top: 18px;
-	padding: 12px 32px;
-	background: #0ef10e;
-	color: #fff;
-	border-radius: 24px;
-	font-size: 1.1em;
-	font-weight: bold;
-	text-decoration: none;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-	transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-.hero-btn:hover {
-	background: #0bc10b;
-	color: #fff;
-	transform: translateY(-2px) scale(1.04);
-}
+
 
 @media (max-width: 700px) {
 	.hero-card {
-		flex-direction: column;
-		align-items: flex-start;
+		flex-direction: column; /* Arranges child elements vertically, from top to bottom */
+		align-items: flex-start; /* Aligns child elements to the start of the cross axis (left edge for   column, top edge for row).
+        With flex-direction: column;, this means all children are aligned to the left (start) of the container. */
 		padding: 24px 10px;
 		gap: 18px;
 	}
@@ -228,7 +223,7 @@ body.dark #toggle-mode {
 	}
 	#main-content {
 		margin-left: 0;
-		padding: 20px 5vw;
+		padding: 20px 5vw; /* gives 20px padding top/bottom and 5% of the window width as padding left/right, making layouts more responsive. */
 	}
 	#hamburger {
 		display: block;
