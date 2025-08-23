@@ -30,7 +30,9 @@
 		<!-- Greeting will be inserted here -->
 		<section id="home" class="page-section">
 			<div class="hero-card">
-				<!-- Profile image or logo (placeholder) -->
+		<!-- Profile image or logo (placeholder) -->
+		<!-- alt = alternative text; -->
+		<!-- "Profile" is the description of the image, so if the image fails to load, users will see the word "Profile" instead-->
 				<img src="https://ui-avatars.com/api/?name=Max+Mustermann&background=0ef10e&color=fff&size=128" alt="Profile" class="hero-img">
 				<div class="hero-content">
 					<h1 id="greeting"></h1>
@@ -41,12 +43,18 @@
 			</div>
 		</section>
 
-		<!-- Resume section with filter -->
+		 <!-- Resume section with filter -->
+		 <!-- display:none; hides the element from the page completely; it will not be visible and will not take up any space in the layout-->
+		 <!-- This means the "resume" section is hidden by default and can be shown later using JavaScript or by removing the style-->
 		<section id="resume" class="page-section" style="display:none;">
 			<h2>Resume</h2>
 			<div class="filters">
+		<!-- Wrapping the input in a <label> allows users to click the text "Professional" to toggle the checkbox -->
+		<!-- <input type="checkbox"> creates a checkbox that users can check or uncheck -->
+		<!-- checked means the checkbox is selected (checked) by default when the page loads -->
 				<label><input type="checkbox" id="filter-professional" checked> Professional</label>
 				<label><input type="checkbox" id="filter-education" checked> Education</label>
+		<!-- value sets the default value that appears in the input field when the page loads -->
 				<label>From: <input type="number" id="filter-from" min="1990" max="2100" value="2000" style="width:70px;"></label>
 				<label>To: <input type="number" id="filter-to" min="1990" max="2100" value="2025" style="width:70px;"></label>
 				<button id="apply-filter">Apply Filter</button>
