@@ -1,0 +1,236 @@
+/* Basic reset and font */
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background: var(--bg, #ffffff);
+	color: var(--fg, #000000);
+	transition: background 0.3s, color 0.3s;
+}
+
+/* Sidebar styles */
+#sidebar {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 220px;
+	height: 100vh;
+	background: #333;
+	color: #0ef10e;
+	padding-top: 20px;
+	z-index: 1000;
+	transition: left 0.3s;
+}
+#sidebar .sidebar-header {
+	font-size: 1.5em;
+	text-align: center;
+	margin-bottom: 40px;
+}
+#sidebar ul {
+	list-style: none;
+	padding: 0;
+}
+#sidebar ul li {
+	margin: 15px 0;
+	text-align: center;
+}
+#sidebar ul li a {
+	color: #0ef10e;
+	text-decoration: none;
+	font-size: 1.1em;
+	transition: color 0.2s;
+}
+#sidebar ul li a:hover {
+	color: #ffd700;
+}
+#toggle-mode {
+	display: block;
+	margin: 450px auto 0 auto;
+	background: #444;
+	color: #ffffff;
+	border: none;
+	border-radius: 20px;
+	padding: 8px 16px;
+	cursor: pointer;
+	font-size: 1.5em;
+}
+
+/* Hamburger for mobile */
+#hamburger {
+	display: none;
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	z-index: 1100;
+	background: #333;
+	color: #fff;
+	border: none;
+	font-size: 2em;
+	border-radius: 5px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+/* Main content area */
+#main-content {
+	margin-left: 240px;
+	padding: 30px 20px;
+	max-width: 900px;
+}
+
+/* Home section hero styles */
+.hero-card {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	background: linear-gradient(120deg, #0ef10e10 0%, #e0ffe0 100%);
+	border-radius: 24px;
+	box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+	padding: 40px 32px;
+	margin-bottom: 40px;
+	gap: 40px;
+	max-width: 900px;
+}
+.hero-img {
+	width: 128px;
+	height: 128px;
+	border-radius: 50%;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+	border: 4px solid #0ef10e;
+	background: #fff;
+}
+.hero-content {
+	flex: 1;
+}
+.hero-title {
+	font-size: 2.2em;
+	margin: 0 0 10px 0;
+	color: #0ef10e;
+	font-weight: bold;
+}
+.hero-subtitle {
+	font-size: 1.2em;
+	color: #333;
+	margin-bottom: 18px;
+}
+.hero-btn {
+	display: inline-block;
+	margin-top: 18px;
+	padding: 12px 32px;
+	background: #0ef10e;
+	color: #fff;
+	border-radius: 24px;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-decoration: none;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.hero-btn:hover {
+	background: #0bc10b;
+	color: #fff;
+	transform: translateY(-2px) scale(1.04);
+}
+
+@media (max-width: 700px) {
+	.hero-card {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 24px 10px;
+		gap: 18px;
+	}
+	.hero-img {
+		width: 96px;
+		height: 96px;
+	}
+	.hero-title {
+		font-size: 1.3em;
+	}
+}
+
+.page-section {
+	margin-bottom: 40px;
+}
+
+/* Resume filter styles */
+.filters {
+	margin-bottom: 15px;
+}
+.filters label {
+	margin-right: 15px;
+}
+
+/* Contact form styles */
+#contact-form {
+	max-width: 400px;
+	background: #f9f9f9;
+	padding: 8px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+#contact-form label {
+	display: block;
+	margin-bottom: 8px;
+}
+#contact-form input, #contact-form textarea {
+	width: 100%;
+	padding: 6px;
+	margin-top: 2px;
+	margin-bottom: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 1em;
+}
+#contact-form button {
+	background: #333;
+	color: #fff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.error {
+	color: red;
+	font-size: 0.9em;
+	margin-left: 5px;
+}
+
+/* Dark mode styles */
+body.dark {
+	--bg: #181818;
+	--fg: #f1f1f1;
+}
+body.dark #sidebar {
+	background: #222;
+	color: #0ef10e;
+}
+body.dark #main-content {
+	background: #222;
+	color: #eee;
+}
+body.dark #contact-form {
+	background: #222;
+	color: #eee;
+	border-color: #444;
+}
+body.dark #toggle-mode {
+	background: #111;
+	color: #ffd700;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 800px) {
+	#sidebar {
+		left: -240px;
+	}
+	#sidebar.active {
+		left: 0;
+	}
+	#main-content {
+		margin-left: 0;
+		padding: 20px 5vw;
+	}
+	#hamburger {
+		display: block;
+	}
+}

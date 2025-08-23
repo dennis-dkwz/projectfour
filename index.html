@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Application</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<!-- Sidebar navigation menu -->
+	<nav id="sidebar">
+		<div class="sidebar-header">Menu</div>
+		<ul>
+            <!-- The # tells the browser to scroll to the element with that ID.-->
+			<li><a href="#home" class="nav-link">Home</a></li>
+			<li><a href="#resume" class="nav-link">Resume</a></li>
+			<li><a href="#contact" class="nav-link">Contact</a></li>
+			<li><a href="#imprint" class="nav-link">Imprint</a></li>
+			<li><a href="#privacy" class="nav-link">Privacy Policy</a></li>
+		</ul>
+		<button id="toggle-mode">🌙</button>
+	</nav>
+
+	<!-- Hamburger for mobile -->
+	<button id="hamburger">☰</button>
+
+
+	<!-- Main content area -->
+	<main id="main-content">
+		<!-- Greeting will be inserted here -->
+		<section id="home" class="page-section">
+			<div class="hero-card">
+				<!-- Profile image or logo (placeholder) -->
+				<img src="https://ui-avatars.com/api/?name=Max+Mustermann&background=0ef10e&color=fff&size=128" alt="Profile" class="hero-img">
+				<div class="hero-content">
+					<h1 id="greeting"></h1>
+					<h2 class="hero-title">Welcome to Our Creative Space!</h2>
+					<p class="hero-subtitle">Where ideas become reality and design meets simplicity.</p>
+					<p>Discover a place where creativity meets simplicity. Here, we aim to provide you with a clean, easy-to-navigate experience while exploring our content. Whether you're here to learn, explore, or just browse, we're glad you stopped by.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Resume section with filter -->
+		<section id="resume" class="page-section" style="display:none;">
+			<h2>Resume</h2>
+			<div class="filters">
+				<label><input type="checkbox" id="filter-professional" checked> Professional</label>
+				<label><input type="checkbox" id="filter-education" checked> Education</label>
+				<label>From: <input type="number" id="filter-from" min="1990" max="2100" value="2000" style="width:70px;"></label>
+				<label>To: <input type="number" id="filter-to" min="1990" max="2100" value="2025" style="width:70px;"></label>
+				<button id="apply-filter">Apply Filter</button>
+			</div>
+			<ul id="resume-list"></ul>
+		</section>
+
+		<!-- Contact form with live validation -->
+		<section id="contact" class="page-section" style="display:none;">
+			<h2>Contact</h2>
+			<form id="contact-form" novalidate>
+				<label>Name: <input type="text" id="contact-name" required></label><span class="error" id="error-name"></span><br>
+				<label>Email: <input type="email" id="contact-email" required></label><span class="error" id="error-email"></span><br>
+				<label>Message: <textarea id="contact-message" required></textarea></label><span class="error" id="error-message"></span><br>
+				<button type="submit">Send</button>
+			</form>
+			<div id="contact-success" style="display:none; color:green;">Thank you for your message!</div>
+		</section>
+
+		<!-- Imprint section -->
+		<section id="imprint" class="page-section" style="display:none;">
+			<h2>Imprint</h2>
+			<p>
+				<strong>Provider:</strong><br>
+				Max Mustermann<br>
+				Musterfirma Web &amp; Design GmbH<br>
+				Musterstraße 1<br>
+				12345 Musterstadt<br>
+				Germany<br>
+			</p>
+			<p>
+				<strong>Contact Information:</strong><br>
+				Phone: +49 (0)123 4567890<br>
+				Fax: +49 (0)123 4567891<br>
+				Email: info@musterfirma-webdesign.de<br>
+				Website: <a href="https://www.musterfirma-webdesign.de" target="_blank">www.musterfirma-webdesign.de</a>
+			</p>
+			<p>
+				<strong>Represented by:</strong><br>
+				Max Mustermann (Managing Director)<br>
+			</p>
+			<p>
+				<strong>Register Entry:</strong><br>
+				Entry in the Commercial Register.<br>
+				Register Court: Musterstadt<br>
+				Register Number: HRB 123456
+			</p>
+			<p>
+				<strong>VAT ID:</strong><br>
+				VAT identification number according to §27 a Umsatzsteuergesetz:<br>
+				DE123456789
+			</p>
+			<p>
+				<strong>Responsible for content according to § 55 Abs. 2 RStV:</strong><br>
+				Max Mustermann<br>
+				Musterstraße 1<br>
+				12345 Musterstadt
+			</p>
+			<p>
+				<strong>Disclaimer:</strong><br>
+				Despite careful content control, we assume no liability for the content of external links. The operators of the linked pages are solely responsible for their content.<br>
+				All information on this website is provided for general information purposes only and is not legally binding.
+			</p>
+		</section>
+
+		<!-- Privacy Policy section -->
+		<section id="privacy" class="page-section" style="display:none;">
+			<h2>Privacy Policy</h2>
+			<p>
+				<strong>General Information</strong><br>
+				The protection of your personal data is very important to us. We treat your personal data confidentially and in accordance with the statutory data protection regulations and this privacy policy.
+			</p>
+			<p>
+				<strong>Data Collection</strong><br>
+				No personal data is collected or stored when you visit this website. We do not use cookies, analytics tools, or tracking technologies. Your visit is completely anonymous.
+			</p>
+			<p>
+				<strong>Server Log Files</strong><br>
+				The provider of the website automatically collects and stores information in so-called server log files, which your browser automatically transmits. This information includes browser type, operating system, referrer URL, host name of the accessing computer, and time of the server request. This data cannot be assigned to specific persons and is not merged with other data sources. We reserve the right to check this data retrospectively if we become aware of specific indications of unlawful use.
+			</p>
+			<p>
+				<strong>Contact</strong><br>
+				If you contact us by email, your details will be stored for the purpose of processing the request and in the event of follow-up questions. This data will not be passed on without your consent.
+			</p>
+			<p>
+				<strong>External Links</strong><br>
+				Our website may contain links to external websites. We have no influence on the content and privacy practices of these sites and therefore cannot accept any responsibility for them. Please refer to the privacy policies of the respective providers.
+			</p>
+			<p>
+				<strong>Your Rights</strong><br>
+				You have the right to receive information about your stored personal data, its origin and recipient, and the purpose of data processing at any time free of charge. You also have the right to request the correction, blocking, or deletion of this data. For this and other questions on the subject of personal data, you can contact us at any time at info@musterfirma-webdesign.de.
+			</p>
+			<p>
+				<strong>Changes to this Privacy Policy</strong><br>
+				We reserve the right to change this privacy policy at any time in compliance with applicable data protection regulations.
+			</p>
+		</section>
+	</main>
+
+	<script src="script.js"></script>
+</body>
+</html>
