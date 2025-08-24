@@ -1,67 +1,101 @@
-// This script controls navigation, dark/light mode, resume filtering, contact form validation, and greeting.
 
+// This script controls navigation, dark/light mode, resume filtering, contact form validation, and greeting.
+//
+// Detailed comments are provided throughout to explain JavaScript concepts and DOM methods.
+// For example, querySelectorAll selects multiple elements, and addEventListener attaches event handlers.
+// DOM = document object modell
 document.addEventListener('DOMContentLoaded', function() {
+
     // --- NAVIGATION: Show only the selected section, hide others ---
-    // Get all navigation links (menu items)
+    // document.querySelectorAll(selector) returns a NodeList of all elements matching the CSS selector.
+    // Here, it selects all navigation links with the class 'nav-link'.
     const navLinks = document.querySelectorAll('.nav-link');
-    // Get all main content sections (pages)
+    // Select all main content sections with the class 'page-section'.
     const sections = document.querySelectorAll('.page-section');
 
-    // Add click event to each navigation link
+    // forEach is used to loop through each navigation link.
     navLinks.forEach(link => {
+        // This code means: "When this link is clicked, run the following function."
+        // addEventListener attaches an event handler to the element.
+        // 'click' is the type of event to listen for (in this case, a mouse click)
+        // The function(e) { ... } is a callback function that will run whenever the event occurs. The e parameter is the event object, which contains information about the event (like which element was clicked, mouse position, etc.).
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default anchor behavior (no page reload)
-            // Get the target section's id (remove the # from href)
-            const target = this.getAttribute('href').substring(1);
-            // Hide all sections
+            e.preventDefault(); // For a link (<a>), the default action is to navigate to the URL in the href attribute (which would reload the page or jump to an anchor).
+            // By calling e.preventDefault(), you stop the browser from navigating, so you can handle the navigation with JavaScript instead.
+
+            // this refers to the element that triggered the event (in this case, the link that was clicked).
+            // getAttribute('href') gets the value of the href attribute (e.g., '#home').
+            // substring(1) creates a new string starting from the second character (index 1), removing the first character (the "#").
+            const target = this.getAttribute('href').substring(1);                      
+            // forEach is an array method that runs a function for each element in the list.
+            // sec => sec.style.display = 'none' is an arrow function: for each section (sec), set its style.display property to 'none'.
+            // style.display = 'none' hides the element from the page (it will not be visible and takes up no space).
             sections.forEach(sec => sec.style.display = 'none');
-            // Show only the selected section
+            // Show only the selected section by setting its display to 'block'.
+            // 'block' makes the element visible and makes it behave as a block-level element (taking up the full width available).
             document.getElementById(target).style.display = 'block';
         });
     });
 
     // --- HAMBURGER MENU for mobile view ---
-    // Get sidebar and hamburger button elements
+    // Get sidebar and hamburger button elements by their IDs.
+  
     const sidebar = document.getElementById('sidebar');
     const hamburger = document.getElementById('hamburger');
-    // Toggle sidebar visibility when hamburger is clicked
+    // When the hamburger button is clicked, toggle the 'active' class on the sidebar.
+    // sidebar is a DOM element (the sidebar menu).
+    // classList is a property that lets you work with the element’s CSS classes.
+    // toggle('active') adds the 'active' class if it’s not present, or removes it if it is.
+    // This is often used to show/hide menus or change styles dynamically.
     hamburger.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
+    sidebar.classList.toggle('active');
     });
 
     // --- DARK/LIGHT MODE toggle with localStorage ---
-    // Get the dark/light mode toggle button
+
+    // Get the dark/light mode toggle button by its ID.
     const modeBtn = document.getElementById('toggle-mode');
-    // Function to set mode (dark or light)
+    // Function to set mode (dark or light). If dark is true, enable dark mode.
     function setMode(dark) {
-        document.body.classList.toggle('dark', dark); // Add/remove 'dark' class
-        modeBtn.textContent = dark ? '☀️' : '🌙'; // Change button icon
-        localStorage.setItem('darkmode', dark ? '1' : '0'); // Save preference
+        // document.body refers to the <body> element of the page.
+        // classList.toggle('dark', dark) will add the 'dark' class if dark is true, or remove it if dark is false.
+        // This is a two-argument version of toggle: the second argument is a boolean that determines whether to add or remove the class.
+        // Used for switching between dark and light mode.
+        document.body.classList.toggle('dark', dark);
+        // Change the button icon depending on the mode.
+        // modeBtn is the button for toggling dark/light mode.
+        // textContent sets the text (or emoji) inside the button.
+        // dark ? '☀️' : '🌙' is a ternary operator: if dark is true, use '☀️' (sun emoji); if false, use '🌙' (moon emoji).
+        modeBtn.textContent = dark ? '☀️' : '🌙';
+        // localStorage is a web storage object that allows you to save key-value pairs in the browser, persisting even after the page reloads.
+        // setItem('darkmode', ...) saves a value under the key 'darkmode'
+        // dark ? '1' : '0' saves '1' if dark is true, or '0' if dark is false.
+        // This remembers the user’s dark/light mode preference for future visits.
+        localStorage.setItem('darkmode', dark ? '1' : '0');
     }
-    // Toggle mode on button click
+    // When the mode button is clicked, toggle the mode.
     modeBtn.addEventListener('click', function() {
         setMode(!document.body.classList.contains('dark'));
     });
-    // On page load, set mode from localStorage (default: light)
+    // On page load, set mode from localStorage (default: light mode if not set).
     setMode(localStorage.getItem('darkmode') === '1');
 
     // --- TIME-OF-DAY GREETING ---
-    // Get the greeting element
+    // Get the greeting element by its ID.
     const greeting = document.getElementById('greeting');
-    // Function to return greeting based on current hour
+    // Function to return a greeting string based on the current hour.
     function getGreeting() {
         const h = new Date().getHours(); // Get current hour (0-23)
         if (h < 12) return 'Good morning!';
         if (h < 18) return 'Good afternoon!';
         return 'Good evening!';
     }
-    // Set greeting text in the DOM
+    // Set the greeting text in the DOM.
     greeting.textContent = getGreeting();
 
     // --- RESUME DATA (in JS variable) ---
     // Array of resume items (type, title, years, description)
-
-    // Expanded resume data for more filtering possibilities
+    // This data is used to populate the resume section and can be filtered.
     const resumeData = [
         // Professional experiences
         {type: 'professional', title: 'Web Developer', from: 2021, to: 2025, desc: 'Company ABC'},
@@ -96,79 +130,96 @@ document.addEventListener('DOMContentLoaded', function() {
         {type: 'education', title: 'Workshop: Cybersecurity Basics', from: 2019, to: 2019, desc: 'CyberSec Academy'}
     ];
 
+
     // --- RESUME FILTER and rendering ---
-    // Function to render resume list based on filter settings
+    // Function to render the resume list based on filter settings.
     function renderResume() {
-        // Get filter values from checkboxes and number inputs
+        // Get filter values from checkboxes and number inputs.
+        // .checked returns true if the checkbox is checked.
         const showProf = document.getElementById('filter-professional').checked; // Show professional?
         const showEdu = document.getElementById('filter-education').checked;     // Show education?
-        const from = parseInt(document.getElementById('filter-from').value, 10); // Start year //.value This gets the current value entered in that input field. The value is always a string, even if the input type is number.
-        const to = parseInt(document.getElementById('filter-to').value, 10);     // End year // The 10 means "use base 10" (decimal), which is standard for normal numbers.
-        const list = document.getElementById('resume-list'); // The <ul> for resume items
-        list.innerHTML = ''; // Clear previous list
+        // .value gets the current value of the input (always a string, even for numbers).
+        // parseInt(..., 10) converts the string to an integer (a whole number).
+        // The 10 is the radix (base) for the conversion. 10 means "decimal" (normal base-10 numbers). 
+        // This ensures numbers like "08" are treated as 8, not as octal (base-8), which can cause bugs in some browsers if not specified.
+        const from = parseInt(document.getElementById('filter-from').value, 10); // Start year
+        const to = parseInt(document.getElementById('filter-to').value, 10);     // End year
+        // Get the <ul> element where resume items will be listed.
+        const list = document.getElementById('resume-list');
+        // list is the <ul> element with id "resume-list".
+        // innerHTML is a property that represents the HTML content inside the element.
+        // Setting innerHTML to '' (an empty string) removes all existing child elements and content from the list.
+        list.innerHTML = ''; // This clears any previously displayed resume items before adding the new, filtered ones.
 
-        // Loop through all resume items
+        // Loop through all resume items in resumeData.
         resumeData.forEach(item => {
-            // Skip if type is not selected in filter
+            // Skip this item if its type is not selected in the filter.
             if ((item.type === 'professional' && !showProf) || (item.type === 'education' && !showEdu)) return;
-            // Skip if item is outside the selected year range
+            // Skip if the item's years are outside the selected range.
             if (item.from > to || item.to < from) return;
-            // Create a new <li> for the item
+            // Create a new <li> element for the item.
             const li = document.createElement('li');
-            // Set the text content for the item
+            // Set the text content for the item.
+            // li is a new <li> (list item) element created for each resume entry.
+            // textContent sets the text inside the <li> (not HTML, just plain text).
+            // The template string:
+            //  ${item.title} (${item.from}-${item.to}) - ${item.desc} combines the item's title, years, and description into a readable format, e.g., "Web Developer (2021-2025) - Company ABC".
             li.textContent = `${item.title} (${item.from}-${item.to}) - ${item.desc}`;
-            // Add the item to the list
+            // appendChild adds the li element as the last child of the list (the <ul>).
+            // This displays the new resume entry in the list on the page.
             list.appendChild(li);
         });
     }
-    // When filter button is clicked, update the resume list
+    // When the filter button is clicked, update the resume list.
     document.getElementById('apply-filter').addEventListener('click', renderResume);
-    // Also update on any filter input change (checkboxes or years)
+    // Also update the list when any filter input changes (checkboxes or years).
     ['filter-professional','filter-education','filter-from','filter-to'].forEach(id => {
         document.getElementById(id).addEventListener('change', renderResume);
     });
     renderResume(); // Initial render on page load
 
+
     // --- CONTACT FORM live validation ---
-    // Get form and all input elements
+    // Get the form and all input elements by their IDs.
     const form = document.getElementById('contact-form');
     const nameInput = document.getElementById('contact-name');
     const emailInput = document.getElementById('contact-email');
     const messageInput = document.getElementById('contact-message');
-    // Get error message spans
+    // Get error message spans for each field.
     const errorName = document.getElementById('error-name');
     const errorEmail = document.getElementById('error-email');
     const errorMessage = document.getElementById('error-message');
-    // Get the success message div
+    // Get the success message div.
     const successMsg = document.getElementById('contact-success');
 
-    // Function to check if email is valid using regex
+    // Function to check if an email is valid using a regular expression (regex).
     function validateEmail(email) {
         // Basic email pattern: something@something.something
+        // .test() returns true if the string matches the pattern.
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-         // The expression /^[^\s@]+@[^\s@]+\.[^\s@]+$/ is a regular expression (regex) 
+        // The expression /^[^\s@]+@[^\s@]+\.[^\s@]+$/ is a regular expression (regex)
         // used to check if an email address is in a valid format.
-        // [^] — Start of the string. // $ — End of the string.
-        // /.../ tell JavaScript: "This is a regular expression."
+        // ^ — Start of the string. $ — End of the string.
+        // /.../ tells JavaScript: "This is a regular expression."
     }
-    // Function to validate all form fields and show error messages
+    // Function to validate all form fields and show error messages.
     function validateForm() {
         let valid = true; // Assume valid
-        // Name must not be empty
+        // Name must not be empty. .trim() removes whitespace.
         errorName.textContent = nameInput.value.trim() ? '' : 'Required';
-        // Email must be valid
+        // Email must be valid.
         errorEmail.textContent = validateEmail(emailInput.value) ? '' : 'Invalid email';
-        // Message must not be empty
+        // Message must not be empty.
         errorMessage.textContent = messageInput.value.trim() ? '' : 'Required';
-        // If any field is invalid, set valid to false
+        // If any field is invalid, set valid to false.
         if (!nameInput.value.trim() || !validateEmail(emailInput.value) || !messageInput.value.trim()) valid = false;
         return valid;
     }
-    // Live validation: check fields as user types
+    // Live validation: check fields as user types (on 'input' event).
     [nameInput, emailInput, messageInput].forEach(input => {
         input.addEventListener('input', validateForm);
     });
-    // On form submit, validate and show success message if valid
+    // On form submit, validate and show success message if valid.
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent form from submitting/reloading
         if (validateForm()) {
@@ -181,8 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // (Handled by sidebar and navigation logic above)
 
     // --- Show home section by default ---
-    // Hide all sections first
+    // Hide all sections first by setting their display to 'none'.
     sections.forEach(sec => sec.style.display = 'none');
-    // Show only the home section
+    // Show only the home section by setting its display to 'block'.
     document.getElementById('home').style.display = 'block';
 });
