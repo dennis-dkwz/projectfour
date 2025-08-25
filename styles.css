@@ -53,7 +53,7 @@ body {
 }
 #toggle-mode {
 	display: block; /* on a link makes it behave like a block; Block elements start on a new line and take up the full width available */
-	margin: 450px auto 0 auto; /* T R B L, auto = centers horizontally */
+	margin: 50px auto 0 auto; /* T R B L, auto = centers horizontally */
 	background: #444;
 	color: #ffffff;
 	border: none;

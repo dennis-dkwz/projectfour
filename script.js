@@ -171,8 +171,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // When the filter button is clicked, update the resume list.
+    // attaches an event listener to that button, so when the button is clicked, the renderResume function is called.
+    // when the user clicks the "Apply Filter" button, the resume list is updated according to the current filter settings.
     document.getElementById('apply-filter').addEventListener('click', renderResume);
-    // Also update the list when any filter input changes (checkboxes or years).
+
+    // This line is used inside a loop for multiple filter inputs (checkboxes and number fields).
+    //document.getElementById(id) selects an input element by its id 
+    // .addEventListener('change', renderResume) attaches an event listener so that whenever the value of the input changes (e.g., a checkbox is checked/unchecked or a number is changed), the renderResume function is called.
+    // This ensures the resume list updates immediately when any filter input changes, without needing to click the button
     ['filter-professional','filter-education','filter-from','filter-to'].forEach(id => {
         document.getElementById(id).addEventListener('change', renderResume);
     });
@@ -202,28 +208,52 @@ document.addEventListener('DOMContentLoaded', function() {
         // ^ — Start of the string. $ — End of the string.
         // /.../ tells JavaScript: "This is a regular expression."
     }
-    // Function to validate all form fields and show error messages.
+     // Function checks if all form fields are valid and returns true if they are, or false if any are invalid.
+    // let valid = true; starts by assuming the form is valid.
+    // As the function checks each field, if any field is invalid, it sets valid = false;
     function validateForm() {
-        let valid = true; // Assume valid
-        // Name must not be empty. .trim() removes whitespace.
+        let valid = true; 
+        // nameInput.value.trim() gets the value of the name input and removes any leading/trailing whitespace.
+        //The ternary operator ? '' : 'Required' means: if the name is not empty, set the error message to an empty string (no error); if it is empty, set the error message to "Required".
+        // errorName.textContent updates the error message shown next to the name field.
         errorName.textContent = nameInput.value.trim() ? '' : 'Required';
-        // Email must be valid.
+        // validateEmail(emailInput.value) checks if the email input value matches a valid email pattern.
+        // If the email is valid, the error message is set to an empty string; if not, it shows "Invalid email".
+        // errorEmail.textContent updates the error message shown next to the email field.
         errorEmail.textContent = validateEmail(emailInput.value) ? '' : 'Invalid email';
-        // Message must not be empty.
+        // checks if the message input is not empty (after trimming whitespace).
+        // If not empty, no error message; if empty, shows "Required".
+        // errorMessage.textContent updates the error message shown next to the message field.
         errorMessage.textContent = messageInput.value.trim() ? '' : 'Required';
-        // If any field is invalid, set valid to false.
+        // checks if any of the fields are invalid:
+        //!nameInput.value.trim() is true if the name is empty.
+        //!validateEmail(emailInput.value) is true if the email is invalid.
+        //!messageInput.value.trim() is true if the message is empty.
+        //If any of these are true (meaning any field is invalid), valid is set to false.
         if (!nameInput.value.trim() || !validateEmail(emailInput.value) || !messageInput.value.trim()) valid = false;
+        // result is used to decide whether to submit the form or show error messages.
         return valid;
     }
     // Live validation: check fields as user types (on 'input' event).
+    // [nameInput, emailInput, messageInput] creates an array containing the three input elements for the contact form.
+    // forEach(input => { ... }) loops through each input element in the array.
+    // input.addEventListener('input', validateForm); attaches an event listener to each input field.
+    // The 'input' event fires every time the user types, deletes, or pastes something in the field.
+    // When this happens, the validateForm function is called, so validation and error messages update live as the user types.
     [nameInput, emailInput, messageInput].forEach(input => {
         input.addEventListener('input', validateForm);
     });
-    // On form submit, validate and show success message if valid.
+    // .addEventListener('submit', function(e) { ... }) attaches an event listener that runs when the form is submitted (e.g., when the user clicks the "Send" button).
+    // The function receives an event object e that contains information about the submission event.
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent form from submitting/reloading
+        // e.preventDefault(); stops the browser’s default form submission behavior (which would reload the page).
+        // This allows you to handle the form submission with JavaScript instead.
+        e.preventDefault(); 
+        // validateForm() checks if all form fields are valid.
         if (validateForm()) {
-            form.style.display = 'none'; // Hide form
+            // If the form is valid (true), then form.style.display = 'none'; hides the form from the page.
+            // followed by showing a success message to the user.
+            form.style.display = 'none'; 
             successMsg.style.display = 'block'; // Show thank you message
         }
     });
@@ -232,8 +262,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // (Handled by sidebar and navigation logic above)
 
     // --- Show home section by default ---
-    // Hide all sections first by setting their display to 'none'.
+    // .forEach(sec => sec.style.display = 'none') loops through each section and sets its display style to 'none'.
+    // This hides all main content sections on the page (they become invisible and take up no space).
     sections.forEach(sec => sec.style.display = 'none');
-    // Show only the home section by setting its display to 'block'.
+    // .style.display = 'block' sets its display style to 'block', making it visible and occupying the full width available.
     document.getElementById('home').style.display = 'block';
+
+     
 });
